@@ -16,5 +16,5 @@ Route::resource('books','BooksController');
 //Route::resource('publishers','PublishersController');
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('index');
 });

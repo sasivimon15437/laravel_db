@@ -22,6 +22,7 @@
                 <td>Title</td>
                 <td>PID</td>
                 <td>Price</td>
+                <td align = center>Operation</td>
             </tr>
             @foreach($books as $book)
             <tr>
@@ -29,6 +30,14 @@
                 <td>{{ $book->Title }}</td>
                 <td>{{ $book->PID }}</td>
                 <td>{{ $book->Price }}</td>
+                <td align = center>
+                    <form action = "{{ route('books.destroy',$book->id) }}" method="POST">
+                        <a class="btn btn-primary" href ="{{ route('books.edit',$book->id) }}"> Edit </a>
+                        @csrf
+                        @method("DELETE")
+                        <button type ="submit" class = "btn btn-danger"> Delete </button>
+                    </form>
+                </td>
             </tr>
             @endforeach
 	    </table>

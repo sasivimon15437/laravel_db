@@ -79,7 +79,8 @@ class BooksController extends Controller
     //เป้น Medthod ที่ใช้เรียกแบบฟอร์มแก้ไขข้อมูล
     public function edit($id)
     {
-        //
+        $book = BooksModel::find($id);
+        return view ('books.edit',compact ('book'));
     }
 
     /**
@@ -92,7 +93,22 @@ class BooksController extends Controller
     //เป้น Medthod ที่ใช้แก้ไขข้อมูลในฐานข้อมูล จะถูกเรียกจากแบบฟอร์มแก้ไขข้อมูล
     public function update(Request $request, $id)
     {
-        //
+        $books = BooksModel::find($id);
+
+        $request->validate([
+            'Book_ID' => 'required',
+            'Title' => 'required',
+            'PID' => 'required',
+            'Price' => 'required'
+        ]);
+
+        $books -> Book_ID  = $request->Book_ID;
+        $books -> Title  = $request->Title;
+        $books -> PID  = $request->PID;
+        $books -> Price  = $request->Price;
+        $books ->update();
+        return redirect()->route('books.index')
+                         ->with('success,Books updated successfully.');
     }
 
     /**
@@ -104,6 +120,11 @@ class BooksController extends Controller
     //เป้น Medthod ที่ใช้ลบข้อมูล
     public function destroy($id)
     {
-        //
+        $books = BooksModel::find($id);
+        $books->delete();
+        return redirect()->route('books.index')
+                         ->with('success','Book delete successfully.');
     }
-}
+
+    }
+
